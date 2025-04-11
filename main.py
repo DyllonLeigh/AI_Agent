@@ -15,7 +15,7 @@ class ResearchResponse(BaseModel):
     sources: list[str]
     tools_used: list[str]
 
-llm = ChatAnthropic(model="claude-3-5-haiku-20241022")
+llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 parser = PydanticOutputParser(pydantic_object=ResearchResponse)
 
 prompt = ChatPromptTemplate.from_messages(
@@ -41,7 +41,7 @@ agent = create_tool_calling_agent(
     tools=tools,
 )
 
-agent_executor = AgentExecutor(agent=agent, tools=[], verbose=False)
+agent_executor = AgentExecutor(agent=agent, tools=[], verbose=True)
 query = input("What can i help you research? ")
 raw_response = agent_executor.invoke({"query": query})
 
